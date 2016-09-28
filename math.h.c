@@ -113,7 +113,7 @@ long int factorial(long int n) {
 	if (n == 0 || n == 1) 
 		return 1;
 	else if(n < 0) 
-		return errno;
+		return (1.0 / 0.0);
     else     
     	return (n*factorial(n-1)); 	
 }
@@ -140,14 +140,11 @@ double sine(double x) {
 /* calculating cosecx */
 
 double cosecant(double x) {
-	if(sine(x) == 0) {
-		perror("bad input\n");
-		return errno;	
-	}
+	if(sine(x) == 0)
+		return (1.0 / 0.0);	
 	else 
 		return (1 / sine(x));
 }
-
 
 /* calculating cosx */
 
@@ -168,35 +165,34 @@ double cosine(double x) {
     return sum;
 }
 
+/* calculating secx */
+
+double secant(double x) {
+	if(cosine(x) == 0) 
+		return (1.0 / 0.0);	
+	else 
+		return (1 / cosine(x));
+}
+
 /* calculating tanx */
 
 double tangent(double x) {
-    double tanx;
-    
-    if(cosine(x) == 0) {
-    	perror("bad input\n");
-    	return errno;
-    }
-    else {
-    	tanx = sine(x) / cosine(x);
-    	return tanx;
-	}
+    if(cosine(x) == 0)
+    	return (1.0 / 0.0);
+    else 
+    	return (sine(x) / cosine(x));	
 }
 
 /* calculating cotx */
 
 double cotangent(double x) {
-	double cotx;
-	
-	if(sine(x) == 0) {
-		perror("bad input\n");
-		return errno;
-	}
-	else {
-		cotx = cosine(x) / sine(x);
-		return cotx;
-	}		
+	if(sine(x) == 0) 
+		return (1.0 / 0.0);
+	else 
+		return (cosine(x) / sine(x));		
 }
+
+/* calculating exponential of a function */
 
 
 

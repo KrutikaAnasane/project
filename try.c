@@ -5,7 +5,7 @@ int main() {
  	double i, y, z;
  	scanf("%lf", &i);
  	y = absolute(i);
- 	z = sine(i);
+ 	z = secant(i);
  	printf("abs value is %lf\n", y);
- 	printf("sine of i is %lf\n", z);
+ 	printf("secant of i is %lf\n", z);
 }
