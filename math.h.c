@@ -3,60 +3,101 @@
 #include <errno.h>
 #include "maths.h"
 
+#define 	M_e  2.7182818284590452354
+
+#define 	M_log2e   1.4426950408889634074	/* log_2 e */ 
+
+#define 	M_log10e   0.43429448190325182765	/* log_10 e */ 
+
+#define 	M_ln2  0.69314718055994530942	/* log_e 2 */
+ 
+#define 	M_ln10   2.30258509299404568402	/* log_e 10 */
+ 
+#define 	M_pi   3.14159265358979323846	/* pi */
+ 
+#define 	M_pi/2  1.57079632679489661923	/* pi/2 */
+ 
+#define 	M_pi/4  0.78539816339744830962	/* pi/4 */
+ 
+#define 	M_1/pi  0.31830988618379067154	/* 1/pi */
+ 
+#define 	M_2/pi   0.63661977236758134308	/* 2/pi */
+ 
+#define 	M_2/sqrt(pi)  1.12837916709551257390	/* 2/sqrt(pi) */
+ 
+#define 	sqrt(2)  1.41421356237309504880	/* sqrt(2) */
+ 
+#define 	M_1/sqrt(2)   0.70710678118654752440	/* 1/sqrt(2) */
+ 
+#define 	NAN   __builtin_nan("")
+ 
+#define 	INFINITY   __builtin_inf()
+ 
 /* power function using base 3 */
 
-double power(int x, int y) {
-	int sign, n, i, j;
-	double p, pow;
-	i = 0;
+double power(int x, int y) {/* upper limit = 2147483647*/
+	char sign = 'p';           /*lower limit = -2147483648*/
+	int n;
+	double pow;
 	
 	if(y < 0) {
-		sign = -1;
+		sign = 'n';
 		y = -y;
 	}
 	
-	if(y == 0) {
-		if(x == 0) {
-			printf("invalid input\n");
-			exit(1);
-		}
-		else
-			return 1.000;
-	}
-	else if(y == 1)
-		pow = x;
-	else if(y == 2)
-		pow = x * x;
-	else {
-		n = y / 3; 
-		pow = 1;
-		while(i < n) {
-			p = x * x * x;
-			pow = pow * p;
-			i++;
-		}
-	}
-	
-	j = y % 3;
-	
-	switch(j) {
-		
-		case '1':
-			pow = pow * x;
+	switch(y) {
+		case 0:
+			if(x == 0) {
+				printf("invalid input\n");
+				exit(1);
+			}	
+			else
+				return 1.000;
+		case 1:
+			pow = x;
 			break;
-		
-		case '2':
-			pow = pow * x * x;
+		case 2:
+			pow = x * x;
 			break;
-			
-		default :
-		break;
+		default:
+			n = y / 3; 
+			pow = 1;
+			while(n > 0) {
+				pow = pow * x * x * x;
+				n--;
+			}
+		
+			switch(y % 3) {
+				case 1:
+					pow = pow * x;
+					break;
+				case 2:
+					pow = pow * x * x;
+					break;
+			}			
 	}
-	
-	if(sign == -1)
+		
+	if(sign == 'n')
 		return ((1.0) / pow);
 	else 
 	    return pow;
+}
+
+/* finding e^x i.e exp */
+
+double expo(int x) {
+	int i;
+	double sum, term;
+	i = 1;
+	sum = 1;
+	term = 1;
+	
+	while(isgreat(absolute(term), 0.0000000001)) {
+		term = (term * x) / i;
+		sum = sum + term;
+		i++;
+	}
+	return sum;
 }
 
 /* finding absolute value of any number */
@@ -192,7 +233,7 @@ double cotangent(double x) {
 		return (cosine(x) / sine(x));		
 }
 
-/* calculating exponential of a function */
+
 
 
 
