@@ -2,11 +2,11 @@
 #include "math.h.c"
 
 int main() {
-int a, b;
- 	double i, y, z;
- 	scanf("%d%d", &a, &b);
+	long double a;
+ 	long double z;
+ 	scanf("%Lf", &a);
  	//y = absolute(i);
- 	z = power(a, b);
+ 	z = squrtl(a);
  	//printf("abs value is %lf\n", y);
- 	printf(" power of i is %lf\n", z);
+ 	printf(" square root is %Lf\n", z);
 }
