@@ -1,9 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "maths.h"
- 
-/* power function using base 3 */
+#include <ctype.h>
 
+/* power function */
+
+/*  to calculate power function when y is float
+	y = 4.3;
+	t = y - (int)y; i.e t = 0.3
+	r = y - t;
+	do x power r i.e x^4
+	and take nth root
+	  	
+*/
 float powerf(float x, int y) {/* upper limit = 2147483647*/
 	char sign = 'p';           /*lower limit = -2147483648*/
 	int n;
@@ -153,52 +162,81 @@ long double powerl(long double x, int y) { /* upper limit = 2147483647*/
 float expof(int x) {
 	int i;
 	float sum, term;
+	char c;
+	c = 'a';
 	i = 1;
 	sum = 1;
 	term = 1;
 	
-	while(isgreat(absolute(term), 0.0000001)) {
+	if(x < 0.0)  {
+		x = -x;
+		sign = 'x';
+	}
+	
+	while(isgreat(fabsolutef(term), 0.0000001)) {
 		term = (term * x) / i;
 		sum = sum + term;
 		i++;
 	}
+	if(sign == 'x')
+		return (1.0 / sum);
 	return sum;
 }
 
 double expo(int x) {
 	int i;
 	double sum, term;
+	char c;
+	c = 'a';
 	i = 1;
 	sum = 1;
 	term = 1;
 	
-	while(isgreat(absolute(term), 0.00000000001)) {
+	if(x < 0.0)  {
+		x = -x;
+		sign = 'x';
+	}
+	
+	while(isgreat(fabsolute(term), 0.00000000001)) {
 		term = (term * x) / i;
 		sum = sum + term;
 		i++;
 	}
+	
+	if(sign == 'x')
+		return (1.0 / sum);
 	return sum;
 }
 
 long double expol(int x) {
 	int i;
 	long double sum, term;
+	char c;
+	c = 'a';
 	i = 1;
 	sum = 1;
 	term = 1;
 	
-	while(isgreat(absolute(term), 0.00000000000001)) {
+	if(x < 0.0)  {
+		x = -x;
+		sign = 'x';
+	}
+	
+	while(isgreat(fabsolutel(term), 0.00000000000001)) {
 		term = (term * x) / i;
 		sum = sum + term;
 		i++;
 	}
+	
+	if(sign == 'x')
+		return (1.0 / sum);
 	return sum;
 }
 
 
-/* finding absolute value of any number */
+/* finding absolute value of a number */
 
-float absolute(float x) {
+float fabsolutef(float x) {
 	if(x > 0) 
 		return x;
 	else if(x == 0) 
@@ -207,7 +245,7 @@ float absolute(float x) {
 		return (-x);
 }
 
-double absolute(double x) {
+double fabsolute(double x) {
 	if(x > 0) 
 		return x;
 	else if(x == 0) 
@@ -216,7 +254,7 @@ double absolute(double x) {
 		return (-x);
 }
 
-long double absolute(long double x) {
+long double fabsolutel(long double x) {
 	if(x > 0) 
 		return x;
 	else if(x == 0) 
@@ -283,7 +321,7 @@ float sinef(float x) {
     term = x;
     sum = x;
     
-    while(isgreat(absolute(term), 0.00000001)) {
+    while(isgreat(fabsolutef(term), 0.00000001)) {
     	term = (term * x * x) / (i * (i - 1));
     	sum = sum + (sign * term);
     	sign = sign * (-1);
@@ -300,7 +338,7 @@ double sine(double x) {
     term = x;
     sum = x;
     
-    while(isgreat(absolute(term), 0.000000000001)) {
+    while(isgreat(fabsolute(term), 0.000000000001)) {
     	term = (term * x * x) / (i * (i - 1));
     	sum = sum + (sign * term);
     	sign = sign * (-1);
@@ -317,7 +355,7 @@ long double sinel(long double x) {
     term = x;
     sum = x;
     
-    while(isgreat(absolute(term), 0.000000000000001)) {
+    while(isgreat(fabsolutel(term), 0.000000000000001)) {
     	term = (term * x * x) / (i * (i - 1));
     	sum = sum + (sign * term);
     	sign = sign * (-1);
@@ -342,7 +380,7 @@ double cosecant(double x) {
 		return (1 / sine(x));
 }
 
-long double cosecant(long double x) {
+long double cosecantl(long double x) {
 	if(sinel(x) == 0)
 		return (1.0 / 0.0);	
 	else 
@@ -359,7 +397,7 @@ float cosinef(float x) {
     term = 1;
     sum = 1;
     
-    while(isgreat(absolute(term), 0.00000001)) {
+    while(isgreat(fabsolutef(term), 0.00000001)) {
     	term = (term * x * x) / (i * (i - 1));
     	sum = sum + (sign * term);
     	sign = sign * (-1);
@@ -376,7 +414,7 @@ double cosine(double x) {
     term = 1;
     sum = 1;
     
-    while(isgreat(absolute(term), 0.00000000001)) {
+    while(isgreat(fabsolute(term), 0.00000000001)) {
     	term = (term * x * x) / (i * (i - 1));
     	sum = sum + (sign * term);
     	sign = sign * (-1);
@@ -393,7 +431,7 @@ long double cosinel(long double x) {
     term = 1;
     sum = 1;
     
-    while(isgreat(absolute(term), 0.0000000000001)) {
+    while(isgreat(fabsolutel(term), 0.0000000000001)) {
     	term = (term * x * x) / (i * (i - 1));
     	sum = sum + (sign * term);
     	sign = sign * (-1);
@@ -471,58 +509,127 @@ long double cotangentl(long double x) {
 		return (cosinel(x) / sinel(x));		
 }
 
-/* square root of a number by newton raphson method */
+/* calculating hyperbolic sine 
+
+double sineh(double x) {
+    double a;
+    
+    a = 
+    return sum;
+}*/
+
+/* square root of a number */
 
 float squrtf(float n) {
 	float r;
-	r = 1;
+	r = 1.0;
 	
 	if(n < 0.0) {
 		printf("invalid input\n");
     	exit(1);
     }
-     
-	while(isgreat(absolute((r * r) - n), 0.0000001)) 
-		r = r - (((r * r) - n) / (2 * r));
+    
+	while(isgreat(fabsolutef((r * r) - n), 0.0000001)) 
+		r = r - (((r * r) - n) / (2.0 * r));
 	return r;
 }
 
 double squrt(double n) {
 	double r;
-	r = 1;
+	r = 1.0;
 	
 	if(n < 0.0) {
 		printf("invalid input\n");
     	exit(1);
     }
-     
-	while(isgreat(absolute((r * r) - n), 0.0000000001)) 
-		r = r - (((r * r) - n) / (2 * r));
+    
+	while(isgreat(fabsolute((r * r) - n), 0.000000001)) 
+		r = r - (((r * r) - n) / (2.0 * r));
 	return r;
 }
 
 long double squrtl(long double n) {
 	long double r;
-	r = 1;
+	r = 1.0;
 	
 	if(n < 0.0) {
 		printf("invalid input\n");
     	exit(1);
     }
-     
-	while(isgreat(absolute((r * r) - n), 0.0000000000001)) 
-		r = r - (((r * r) - n) / (2 * r));
+    
+	while(isgreat(fabsolutel((r * r) - n), 0.000000000001)) 
+		r = r - (((r * r) - n) / (2.0 * r));
 	return r;
 }
 
+/* cube root of a number */
 
+float cubrtf(float n) {
+	float r;
+	r = 1;
+	
+	while(isgreat(fabsolutef((r * r * r) - n), 0.000001)) 
+		r = r - (((r * r * r) - n) / (3.0 * r * r));
+	return r;
+}
 
+double cubrt(double n) {
+	double r;
+	r = 1;
+	
+	while(isgreat(fabsolute((r * r * r) - n), 0.00000001)) 
+		r = r - (((r * r * r) - n) / (3.0 * r * r));
+	return r;
+}
 
+long double cubrtl(long double n) {
+	long double r;
+	r = 1;
+	
+	while(isgreat(fabsolutel((r * r * r) - n), 0.0000000001)) 
+		r = r - (((r * r * r) - n) / (3.0 * r * r));
+	return r;
+}
 
+/* calculate ceiling of a number */
 
+float ceilngf(float x) {
+	if(x <= 0 || (x - (int)x) == 0)
+	 	return (int)x;
+	return (int)x + 1.0;
+}
 
+double ceilng(double x) {	 
+	if(x <= 0 || (x - (int)x) == 0)
+	 	return (int)x;
+	return (int)x + 1.0;
+}
 
+long double ceilngl(long double x) {	 
+	if(x <= 0 || (x - (int)x) == 0)
+	 	return (int)x;
+	return (int)x + 1.0;
+}
 
+/* calculate floor of a number */
+
+float flrf(float x) {
+	if(x >= 0 || (x - (int)x) == 0)
+	 	return (int)x;
+	return (int)x - 1.0;
+}
+
+double flr(double x) {	 
+	if(x >= 0 || (x - (int)x) == 0)
+	 	return (int)x;
+	return (int)x - 1.0;
+}
+
+long double flrl(long double x) {	 
+	if(x >= 0 || (x - (int)x) == 0)
+	 	return (int)x;
+	return (int)x - 1.0;
+}
 
 
 

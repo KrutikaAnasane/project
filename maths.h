@@ -42,9 +42,9 @@ float expof(int x);
 double expo(int x);
 long double expol(int x);
 
-float absolutef(float x);
-double absolute(double x);
-long double absolutel(long double x);
+float fabsolutef(float x);
+double fabsolute(double x);
+long double fabsolutel(long double x);
 
 long int factorial(long int n);
 double isgreat(double x, double y);
@@ -79,6 +79,18 @@ long double cotangentl(long double x);
 float squrtf(float n);
 double squrt(double n);
 long double squrtl(long double n);
+
+float cubrtf(float n);
+double cubrt(double n);
+long double cubrtl(long double n);
+
+float ceilngf(float x);
+double ceilng(double x);
+long double ceilngl(long double x);
+
+float flrf(float x);
+double flr(double x);
+long double flrl(long double x);
 
 #endif
 
