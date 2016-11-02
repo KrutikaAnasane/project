@@ -4,6 +4,7 @@ MIS : 111508010
 DESCRIPTION :
 	Contains implementation of basic math library functions.
 	Implemented in efficient way and are optimised.
+	Project contains screenshots and test files.
 	
 
 	
